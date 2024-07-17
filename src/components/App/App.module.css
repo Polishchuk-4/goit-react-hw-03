@@ -10,3 +10,6 @@
   flex-direction: column;
   row-gap: 30px;
 }
+.appTitle {
+  font-size: 30px;
+}
