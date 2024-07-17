@@ -15,12 +15,18 @@ export default function App() {
     });
   };
 
+  const deleteContact = (contactId) => {
+    setContacts((prevValues) => {
+      return prevValues.filter((contact) => contact.id !== contactId);
+    });
+  };
+
   return (
     <div className={style.app}>
       <h1 className={style.appTitle}>Phonebook</h1>
       <ContactForm onAdd={addContact} />
       <SearchBox />
-      <ContactList contacts={contacts} />
+      <ContactList contacts={contacts} onDelete={deleteContact} />
     </div>
   );
 }

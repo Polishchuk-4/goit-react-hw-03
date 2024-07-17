@@ -23,7 +23,7 @@ const initialValues = {
   number: "",
 };
 
-const ContactForm = ({ onAdd }) => {
+export default function ContactForm({ onAdd }) {
   const nameFieldId = useId();
   const numberFieldId = useId();
 
@@ -82,6 +82,4 @@ const ContactForm = ({ onAdd }) => {
       </Form>
     </Formik>
   );
-};
-
-export default ContactForm;
+}
