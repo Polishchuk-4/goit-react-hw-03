@@ -8,6 +8,7 @@ import { useState } from "react";
 
 export default function App() {
   const [contacts, setContacts] = useState(initialContacts);
+  const [filter, setFilter] = useState("");
 
   const addContact = (contact) => {
     setContacts((prevValues) => {
@@ -21,12 +22,18 @@ export default function App() {
     });
   };
 
+  const visibleContacts = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  console.log(contacts);
+
   return (
     <div className={style.app}>
       <h1 className={style.appTitle}>Phonebook</h1>
       <ContactForm onAdd={addContact} />
-      <SearchBox />
-      <ContactList contacts={contacts} onDelete={deleteContact} />
+      <SearchBox value={filter} onFilter={setFilter} />
+      <ContactList contacts={visibleContacts} onDelete={deleteContact} />
     </div>
   );
 }
