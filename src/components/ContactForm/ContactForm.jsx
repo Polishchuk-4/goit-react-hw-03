@@ -1,5 +1,6 @@
 import { useId } from "react";
 import { Field, Formik, Form, ErrorMessage } from "formik";
+import { nanoid } from "nanoid";
 
 import * as Yup from "yup";
 
@@ -22,12 +23,17 @@ const initialValues = {
   number: "",
 };
 
-const ContactForm = () => {
+const ContactForm = ({ onAdd }) => {
   const nameFieldId = useId();
   const numberFieldId = useId();
 
   const handleSubmit = (values, actions) => {
-    console.log(values);
+    console.log(values.username);
+    onAdd({
+      id: nanoid(),
+      name: values.username,
+      number: values.number,
+    });
     actions.resetForm();
   };
 
