@@ -4,10 +4,22 @@ import ContactForm from "../ContactForm/ContactForm";
 import SearchBox from "../SearchBox/SearchBox";
 import style from "./App.module.css";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function App() {
-  const [contacts, setContacts] = useState(initialContacts);
+  const [contacts, setContacts] = useState(() => {
+    const savedContacts = window.localStorage.getItem("contacts");
+    if (savedContacts !== null) {
+      return JSON.parse(savedContacts);
+    } else {
+      return initialContacts;
+    }
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem("contacts", JSON.stringify(contacts));
+  }, [contacts]);
+
   const [filter, setFilter] = useState("");
 
   const addContact = (contact) => {
@@ -22,9 +34,9 @@ export default function App() {
     });
   };
 
-  const visibleContacts = contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
+  const visibleContacts = contacts.filter((contact) => {
+    return contact.name.toLowerCase().includes(filter.toLowerCase());
+  });
 
   console.log(contacts);
 
